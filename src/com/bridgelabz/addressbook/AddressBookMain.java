@@ -125,21 +125,10 @@ public class AddressBookMain {
 
 	public static void deleteContactDetails(String name) {
 		List<ContactPerson> contactDetails = addressBook.getContacts();
-		for (int i = 0; i <= contactDetails.size() - 1; i++) {
-
-			int value = 0;
-			ContactPerson contactperson = contactDetails.get(i);
-			if (contactperson.getFirstName().equals(name)) {
-				contactperson.setAddress("");
-				contactperson.setCity("");
-				contactperson.setFirstName("");
-				contactperson.setLastName("");
-				contactperson.setPhone(value);
-				contactperson.setState("");
-				contactperson.setZip(value);
-				contactperson.setEmail("");
-				contactDetails.set(i, contactperson);
-
+		for (int i = 0; i <= contactDetails.size() - 1; i++) { 
+			ContactPerson contactperson = contactDetails.get(i); 
+			if (contactperson.getFirstName().equals(name)) { 	
+				contactDetails.remove(i); 
 				addressBook.setContacts(contactDetails);
 			}
 		}
