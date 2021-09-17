@@ -16,7 +16,7 @@ public class AddressBookMain {
 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your choice");
-		System.out.println("1 : Add new contact    2 : Edit contact ");
+		System.out.println("1 : Add new contact    2 : Edit contact   3 : Delete Contact");
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
@@ -63,18 +63,25 @@ public class AddressBookMain {
 			long editPhone = sc.nextLong();
 			System.out.println("Enter the Email Id");
 			String editemail = sc.next();
-			editContact(name,editFirstName, editLastName, editAddress, editCity, editState, editzip, editPhone, editemail);
+			editContact(name, editFirstName, editLastName, editAddress, editCity, editState, editzip, editPhone,
+					editemail);
 			addContactDetails();
 			sc.close();
 			break;
-		default : 
-			System.out.println("Please Enter correct choice"); 
-			
+		case 3:
+			System.out.println("Enter the person Name");
+			String deletename = sc.next();
+			deleteContactDetails(deletename);
+			addContactDetails();
+			break;
+		default:
+			System.out.println("Please Enter correct choice");
+
 		}
 	}
 
-	public static void editContact(String name,String editFirstName, String lastname, String address, String city, String state, int zip,
-			long phone, String email) {
+	public static void editContact(String name, String editFirstName, String lastname, String address, String city,
+			String state, int zip, long phone, String email) {
 		List<ContactPerson> contactDetails = addressBook.getContacts();
 		for (int i = 0; i <= contactDetails.size() - 1; i++) {
 
@@ -116,4 +123,27 @@ public class AddressBookMain {
 
 	}
 
+	public static void deleteContactDetails(String name) {
+		List<ContactPerson> contactDetails = addressBook.getContacts();
+		for (int i = 0; i <= contactDetails.size() - 1; i++) {
+
+			int value = 0;
+			ContactPerson contactperson = contactDetails.get(i);
+			if (contactperson.getFirstName().equals(name)) {
+				contactperson.setAddress("");
+				contactperson.setCity("");
+				contactperson.setFirstName("");
+				contactperson.setLastName("");
+				contactperson.setPhone(value);
+				contactperson.setState("");
+				contactperson.setZip(value);
+				contactperson.setEmail("");
+				contactDetails.set(i, contactperson);
+
+				addressBook.setContacts(contactDetails);
+			}
+		}
+		System.out.println("Contact deleted Successfully");
+		displayContacts(addressBook);
+	}
 }
