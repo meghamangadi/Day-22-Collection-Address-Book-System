@@ -6,42 +6,48 @@ import java.util.Scanner;
 
 public class AddressBookMain {
 	public static AddressBook addressBook = new AddressBook();
+	public static Scanner sc = new Scanner(System.in);
+	public static List<ContactPerson> contactList = new ArrayList<>();
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to Address Book Program\n");
 		addContactDetails();
 	}
 
+	public static void addMultipleContact() {
+		System.out.println("Enter the First Name");
+		String firstName = sc.next();
+		System.out.println("Enter the Last Name");
+		String lastName = sc.next();
+		System.out.println("Enter The Address");
+		String address = sc.next();
+		System.out.println("Enter the city");
+		String city = sc.next();
+		System.out.println("Enter the state");
+		String state = sc.next();
+		System.out.println("Enter the zip Code");
+		int zip = sc.nextInt();
+		System.out.println("Enter the Phone number");
+		long phone = sc.nextLong();
+		System.out.println("Enter the Email Id");
+		String email = sc.next();
+		ContactPerson contact = new ContactPerson(firstName, lastName, address, city, state, zip, phone, email);
+		contactList.add(contact);
+		addressBook.setContacts(contactList);
+		displayContacts(addressBook);
+		System.out.println();
+		addContactDetails();
+
+	}
+
 	public static void addContactDetails() {
 
-		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter your choice");
 		System.out.println("1 : Add new contact    2 : Edit contact   3 : Delete Contact");
 		int choice = sc.nextInt();
 		switch (choice) {
 		case 1:
-			System.out.println("Enter the First Name");
-			String firstName = sc.next();
-			System.out.println("Enter the Last Name");
-			String lastName = sc.next();
-			System.out.println("Enter The Address");
-			String address = sc.next();
-			System.out.println("Enter the city");
-			String city = sc.next();
-			System.out.println("Enter the state");
-			String state = sc.next();
-			System.out.println("Enter the zip Code");
-			int zip = sc.nextInt();
-			System.out.println("Enter the Phone number");
-			long phone = sc.nextLong();
-			System.out.println("Enter the Email Id");
-			String email = sc.next();
-			ContactPerson contact = new ContactPerson(firstName, lastName, address, city, state, zip, phone, email);
-			List<ContactPerson> contactList = new ArrayList<>();
-			contactList.add(contact);
-			addressBook.setContacts(contactList);
-			displayContacts(addressBook);
-			addContactDetails();
+			addMultipleContact();
 			break;
 		case 2:
 
@@ -105,11 +111,12 @@ public class AddressBookMain {
 
 	public static void displayContacts(AddressBook addressBook) {
 		List<ContactPerson> contactDetails = addressBook.getContacts();
-
+		System.out.println("Conatct Details :");
+		System.out.println();
+		
 		for (int i = 0; i <= contactDetails.size() - 1; i++) {
 			ContactPerson contactperson = contactDetails.get(i);
 			if (!contactperson.getFirstName().equals("")) {
-				System.out.println("Conatct Details :");
 				System.out.println("FirstName :" + contactperson.getFirstName() + "      LastName :"
 						+ contactperson.getLastName() + "     Address :" + contactperson.getAddress() + "      City :"
 						+ contactperson.getCity() + "       State :" + contactperson.getState() + "     Zip :"
@@ -125,10 +132,10 @@ public class AddressBookMain {
 
 	public static void deleteContactDetails(String name) {
 		List<ContactPerson> contactDetails = addressBook.getContacts();
-		for (int i = 0; i <= contactDetails.size() - 1; i++) { 
-			ContactPerson contactperson = contactDetails.get(i); 
-			if (contactperson.getFirstName().equals(name)) { 	
-				contactDetails.remove(i); 
+		for (int i = 0; i <= contactDetails.size() - 1; i++) {
+			ContactPerson contactperson = contactDetails.get(i);
+			if (contactperson.getFirstName().equals(name)) {
+				contactDetails.remove(i);
 				addressBook.setContacts(contactDetails);
 			}
 		}
